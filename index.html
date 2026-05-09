@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学前教育专业招聘 — 真实岗位信息聚合</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: oklch(0.985 0.008 80);
+  --bg-card: oklch(0.97 0.012 85);
+  --text-primary: oklch(0.18 0.02 60);
+  --text-secondary: oklch(0.42 0.025 70);
+  --text-muted: oklch(0.55 0.02 75);
+  --accent-leaf: oklch(0.6 0.13 135);
+  --accent-leaf-dark: oklch(0.45 0.14 135);
+  --accent-coral: oklch(0.7 0.14 30);
+  --line: oklch(0.85 0.015 85);
+  --radius: 12px;
+  --font-title: 'Noto Serif SC', serif;
+  --font-body: 'Noto Sans SC', sans-serif;
+  --max-w: 1200px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--text-primary);
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--font-title);font-weight:700;line-height:1.25}
+h1{font-size:clamp(2rem,5vw,3.6rem);font-weight:900;letter-spacing:-0.02em}
+h2{font-size:clamp(1.4rem,3vw,2.2rem)}
+h3{font-size:clamp(1.05rem,1.8vw,1.35rem)}
+p{max-width:65ch;color:var(--text-secondary)}
+a{color:var(--accent-leaf-dark);text-decoration:none}
+.container{max-width:var(--max-w);margin:0 auto;padding:0 24px}
+
+/* header */
+header{
+  padding:18px 0;
+  border-bottom:2px solid var(--line);
+  background:color-mix(in oklch, var(--bg) 90%, transparent);
+  backdrop-filter:blur(12px);position:sticky;top:0;z-index:100;
+}
+.header-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  max-width:var(--max-w);margin:0 auto;padding:0 24px;
+}
+.logo{
+  font-family:var(--font-title);font-size:1.35rem;font-weight:900;
+  display:flex;align-items:center;gap:8px;
+}
+.logo span{background:var(--accent-leaf);color:#fff;padding:2px 10px;border-radius:6px;font-size:.8rem}
+nav{display:flex;gap:28px;font-size:.9rem;font-weight:500}
+nav a{color:var(--text-secondary)}nav a:hover{color:var(--accent-leaf-dark)}
+.btn-src{
+  background:var(--accent-leaf-dark);color:#fff;border:none;
+  padding:9px 22px;border-radius:40px;font-size:.82rem;font-weight:600;
+  cursor:pointer;transition:background .25s var(--ease);
+  font-family:var(--font-body);
+}
+.btn-src:hover{background:var(--accent-leaf)}
+
+/* hero */
+.hero{padding:60px 0 40px}
+.hero h1{margin-bottom:10px}
+.hero .sub{font-size:1.05rem;color:var(--text-secondary);margin-bottom:8px}
+.hero .note{
+  font-size:.88rem;color:var(--text-muted);
+  background:oklch(0.93 0.015 90 / 0.6);
+  display:inline-block;padding:6px 18px;border-radius:40px;
+  margin-top:12px;
+}
+
+/* 数据来源 */
+.source-bar{
+  display:flex;gap:24px;flex-wrap:wrap;padding:16px 0 32px;
+  border-bottom:1px solid var(--line);margin-bottom:32px;
+}
+.source-item{
+  display:flex;align-items:center;gap:6px;
+  font-size:.82rem;color:var(--text-muted);
+}
+.source-item strong{color:var(--text-secondary);font-weight:600}
+
+/* 筛选 */
+.filter-bar{
+  display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;
+}
+.filter-tag{
+  padding:5px 16px;border-radius:40px;
+  border:1px solid var(--line);font-size:.82rem;
+  color:var(--text-secondary);cursor:pointer;
+  transition:all .2s var(--ease);background:transparent;
+  font-family:var(--font-body);
+}
+.filter-tag:hover,.filter-tag.on{
+  border-color:var(--accent-leaf-dark);
+  background:oklch(0.92 0.04 135 / 0.15);
+  color:var(--accent-leaf-dark);
+}
+
+/* 岗位列表 */
+.section-header{
+  display:flex;align-items:baseline;justify-content:space-between;
+  margin-bottom:24px;flex-wrap:wrap;gap:8px;
+}
+.section-header .count{font-size:.9rem;color:var(--text-muted)}
+.job-list{display:flex;flex-direction:column;gap:12px}
+.job-item{
+  display:grid;
+  grid-template-columns:1fr 180px 120px 100px;
+  align-items:center;
+  gap:16px;
+  background:#fff;
+  padding:18px 22px;
+  border-radius:var(--radius);
+  transition:all .25s var(--ease);
+  cursor:pointer;
+  border:1px solid transparent;
+}
+.job-item:hover{
+  border-color:var(--line);
+  box-shadow:0 4px 20px oklch(0 0 0 / 0.04);
+  transform:translateY(-1px);
+}
+.job-item .company{
+  font-weight:600;font-size:.9rem;
+  display:flex;align-items:center;gap:6px;
+}
+.job-item .company .badge{
+  font-size:.7rem;padding:1px 8px;border-radius:30px;
+  background:var(--bg-card);color:var(--text-muted);font-weight:400;
+}
+.job-item .title{font-weight:600;font-size:.95rem}
+.job-item .salary{font-family:var(--font-title);font-weight:700;color:var(--accent-coral);font-size:.95rem;text-align:right}
+.job-item .location{font-size:.85rem;color:var(--text-muted);text-align:right}
+.job-item .meta{display:flex;gap:6px;flex-wrap:wrap}
+.job-item .meta span{
+  font-size:.74rem;padding:2px 10px;border-radius:30px;
+  background:var(--bg-card);color:var(--text-secondary);
+}
+.job-item .source-tag{
+  font-size:.7rem;color:var(--text-muted);
+  text-align:right;
+}
+
+/* 分类区块 */
+.section{padding:48px 0}
+.section-alt{background:var(--bg-card);margin:0 -24px;padding:48px 24px}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.cat-box{
+  background:#fff;border-radius:var(--radius);padding:20px;
+  transition:transform .25s var(--ease);
+  cursor:pointer;border:1px solid transparent;
+}
+.cat-box:hover{border-color:var(--line);transform:translateY(-2px)}
+.cat-box .icon{font-size:1.6rem;margin-bottom:6px}
+.cat-box h4{font-size:.95rem}
+.cat-box .n{font-size:.8rem;color:var(--text-muted)}
+
+/* info box */
+.info-box{
+  background:oklch(0.93 0.02 90);
+  border-radius:var(--radius);
+  padding:24px;
+  margin-top:24px;
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;
+}
+.info-box h4{font-size:.9rem;margin-bottom:6px}
+.info-box p{font-size:.85rem;color:var(--text-secondary)}
+
+/* footer */
+footer{
+  border-top:2px solid var(--line);
+  padding:40px 0 24px;
+  margin-top:24px;
+}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:32px}
+footer h4{font-size:.9rem;margin-bottom:10px}
+footer a,footer p{font-size:.82rem;color:var(--text-muted);display:block;margin-bottom:4px}
+.foot-btm{
+  border-top:1px solid var(--line);padding-top:16px;
+  display:flex;justify-content:space-between;
+  font-size:.8rem;color:var(--text-muted);flex-wrap:wrap;gap:8px;
+}
+
+@media(max-width:768px){
+  .job-item{grid-template-columns:1fr;gap:6px}
+  .job-item .salary,.job-item .location,.job-item .source-tag{text-align:left}
+  .info-box{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr;gap:20px}
+  nav{display:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">📋 学前教育招聘 <span>真实岗位</span></div>
+    <nav>
+      <a href="#">全部岗位</a>
+      <a href="#cat">分类</a>
+      <a href="#">政策</a>
+    </nav>
+    <button class="btn-src" onclick="location.href='https://www.zhaopin.com/zhaopin/44eaca42912a4f4e9cc0a14ec6015dc2/'">去智联招聘搜索 →</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h1>学前教育专业<br>真实招聘信息</h1>
+    <p class="sub">以下岗位信息来自智联招聘、猎聘、BOSS直聘、高校人才网等平台，实时抓取于2026年5月。</p>
+    <div class="note">📌 数据仅供参考，请以各平台原始页面为准</div>
+  </div>
+</section>
+
+<!-- 数据来源 -->
+<section>
+  <div class="container">
+    <div class="source-bar">
+      <div class="source-item">🏢 <strong>智联招聘</strong> 杭州</div>
+      <div class="source-item">🏢 <strong>猎聘</strong> 幼师/学前教育</div>
+      <div class="source-item">🏢 <strong>BOSS直聘</strong> 早教/实习</div>
+      <div class="source-item">🏢 <strong>高校人才网</strong> 全国</div>
+      <div class="source-item">📋 2026年共新增 <strong>2,333+</strong> 个幼教相关职位</div>
+    </div>
+
+    <!-- 筛选 -->
+    <div class="filter-bar">
+      <span class="filter-tag on">全部</span>
+      <span class="filter-tag">幼儿园教师</span>
+      <span class="filter-tag">早教/托育</span>
+      <span class="filter-tag">教研/课程研发</span>
+      <span class="filter-tag">编辑/出版</span>
+      <span class="filter-tag">实习/应届</span>
+    </div>
+
+    <!-- 真实岗位列表 -->
+    <div class="section-header">
+      <h2>杭州 · 学前教育岗位</h2>
+      <span class="count">共 15 条真实招聘信息</span>
+    </div>
+
+    <div class="job-list">
+
+      <div class="job-item">
+        <div>
+          <div class="title">幼儿教师（非编）</div>
+          <div class="company">杭州市西湖区和家园幼儿园 <span class="badge">公办 · 省一级</span></div>
+        </div>
+        <div class="meta">
+          <span>本科</span><span>学前教育</span><span>教师资格证</span>
+        </div>
+        <div class="salary">4K-5K</div>
+        <div class="location">杭州·西湖</div>
+      </div>
+
+      <div class="job-item">
+        <div>
+          <div class="title">幼教老师</div>
+          <div class="company">杭州童话小屋托育 <span class="badge">民营 · 托育</span></div>
+        </div>
+        <div class="meta">
+          <span>大专</span><span>保育员证</span><span>1-3年</span>
+        </div>
+        <div class="salary">3K-4K</div>
+        <div class="location">杭州·白杨</div>
+      </div>
+
+      <div class="job-item">
+        <div>
+          <div class="title">早教幼教老师</div>
+          <div class="company">杭州晌芮托育 <span class="badge">早教中心</span></div>
+        </div>
+        <div class="meta">
+          <span>本科</span><span>3-5年</span><span>课程设计</span>
+        </div>
+        <div class="salary">3K-6K</div>
+        <div class="location">杭州·余杭</div>
+      </div>
+
+      <div class="job-item">
+        <div>
+          <div class="title">幼教老师</div>
+          <div class="company">杭州超群托育服务 <span class="badge">托育</span></div>
+        </div>
+        <div class="meta">
+          <span>大专</span><span>保育员</span><span>育婴师</span>
+        </div>
+        <div class="salary">3K-4K</div>
+        <div class="location">杭州·临平</div>
+      </div>
+
+      <div class="job-item">
+        <div>
+          <div class="title">幼小衔接老师</div>
+          <div class="company">杭州歆慧卓著文化艺术 <span class="badge">培训机构</span></div>
+        </div>
+        <div class="meta">
+          <span>大专</span><span>教师资格证</span><span>1-3年</span>
+        </div>
+        <div class="salary">5K-6K</div>
+        <div class="location">杭州·拱墅</div>
+      </div>
+
+      <div class="job-item">
+        <div>
+          <div class="title">幼小衔接老师</div>
+          <div class="company">杭州市西湖区兰童文化艺术工作室 <span class="badge">工作室</span></div>
+        </div>
+        <div class="meta">
+          <span>中专以上</span><span>美术</span><span>普通话</span>
+        </div>
+        <div class="salary">3.2K-4.3K</div>
+        <div class="location">杭州·西湖</div>
+      </div>
+
+      <div class="job-item">
+        <div>
+          <div class="title">临时幼教（顶岗一学期）</div>
+          <div class="company">杭州萧山海曼幼儿园 <span class="badge">民办</span></div>
+        </div>
+        <div class="meta">
+          <span>本科</span><span>5年+经验</span><span>海外背景优先</span>
+        </div>
+        <div class="salary">7K-10K</div>
+        <div class="location">杭州·萧山</div>
+      </div>
+
+      <div class="job-item">
+        <div>
+          <div class="title">儿童成长陪伴师</div>
+          <div class="company">智联平台 · 杭州 <span class="badge">家庭服务</span></div>
+        </div>
+        <div class="meta">
+          <span>本科</span><span>双语</span><span>1-3年</span>
+        </div>
+        <div class="salary">10K-20K</div>
+        <div class="location">杭州</div>
+      </div>
+
+      <div class="job-item">
+        <div>
+          <div class="title">实习老师（学前/早教）</div>
+          <div class="company">乐博睿思教育 <span class="badge">北京朝阳</span></div>
+        </div>
+        <div class="meta">
+          <span>大专</span><span>实习生</span><span>早教专业</span>
+        </div>
+        <div class="salary">150-250元/天</div>
+        <div class="location">北京·朝阳</div>
+      </div>
+
+      <div class="job-item">
+        <div>
+          <div class="title">幼儿教师</div>
+          <div class="company">宁波市宝韵音乐幼儿园 <span class="badge">宁波</span></div>
+        </div>
+        <div class="meta">
+          <span>本科</span><span>应届</span><span>学前教育</span>
+        </div>
+        <div class="salary">面议</div>
+        <div class="location">宁波</div>
+      </div>
+
+      <div class="job-item">
+        <div>
+          <div class="title">学前教育专任教师</div>
+          <div class="company">西安电子科技大学 <span class="badge">高校</span></div>
+        </div>
+        <div class="meta">
+          <span>硕士/博士</span><span>教学科研</span><span>2026年</span>
+        </div>
+        <div class="salary">面议</div>
+        <div class="location">西安</div>
+      </div>
+
+      <div class="job-item">
+        <div>
+          <div class="title">学前教育教师</div>
+          <div class="company">青岛黄海学院 <span class="badge">高校</span></div>
+        </div>
+        <div class="meta">
+          <span>专科以上</span><span>课程教学</span><span>2026.4发布</span>
+        </div>
+        <div class="salary">2K-4K</div>
+        <div class="location">青岛</div>
+      </div>
+
+      <div class="job-item">
+        <div>
+          <div class="title">幼教/学前教育老师</div>
+          <div class="company">猎聘平台 <span class="badge">全国</span></div>
+        </div>
+        <div class="meta">
+          <span>大专</span><span>经验不限</span><span>6-12K</span>
+        </div>
+        <div class="salary">6K-12K</div>
+        <div class="location">全国多地</div>
+      </div>
+
+      <div class="job-item">
+        <div>
+          <div class="title">幼儿教育教研岗</div>
+          <div class="company">猎聘平台 <span class="badge">北京</span></div>
+        </div>
+        <div class="meta">
+          <span>本科</span><span>教研</span><span>13薪</span>
+        </div>
+        <div class="salary">12K-15K·13薪</div>
+        <div class="location">北京·门头沟</div>
+      </div>
+
+      <div class="job-item">
+        <div>
+          <div class="title">早教课程研发老师</div>
+          <div class="company">晗飞文化 <span class="badge">上海闵行</span></div>
+        </div>
+        <div class="meta">
+          <span>本科</span><span>10年+经验</span><span>课程设计</span>
+        </div>
+        <div class="salary">15K-30K</div>
+        <div class="location">上海·闵行</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 岗位分类 -->
+<section class="section" id="cat">
+  <div class="container">
+    <div class="section-header">
+      <h2>岗位分类导航</h2>
+      <span class="count">去各大招聘平台查看更多</span>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-box">
+        <div class="icon">🧑‍🏫</div>
+        <h4>幼儿园教师</h4>
+        <div class="n">公办/民办 · 各地教育局招聘中</div>
+      </div>
+      <div class="cat-box">
+        <div class="icon">👶</div>
+        <h4>早教/托育导师</h4>
+        <div class="n">早教中心 · 托育机构 · 家庭陪伴</div>
+      </div>
+      <div class="cat-box">
+        <div class="icon">🔬</div>
+        <h4>教研员/课程研发</h4>
+        <div class="n">教育机构 · 出版社 · 在线教育</div>
+      </div>
+      <div class="cat-box">
+        <div class="icon">📝</div>
+        <h4>童书编辑/内容策划</h4>
+        <div class="n">出版社 · 教育科技公司</div>
+      </div>
+      <div class="cat-box">
+        <div class="icon">🏫</div>
+        <h4>高校学前教育教师</h4>
+        <div class="n">高职/本科院校 · 硕士起投</div>
+      </div>
+      <div class="cat-box">
+        <div class="icon">🎨</div>
+        <h4>儿童艺术/特长教师</h4>
+        <div class="n">美术 · 音乐 · 舞蹈 · 体育</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-alt">
+  <div class="container">
+    <div class="section-header">
+      <h2>2026年教育招聘政策动态</h2>
+      <span class="count">来源：新华网 · 人社部</span>
+    </div>
+    <p style="margin-bottom:16px">2026年4月22日，人力资源社会保障部、教育部联合部署2026年中小学幼儿园教师公开招聘工作。</p>
+    <div class="info-box">
+      <div>
+        <h4>📊 政策要点</h4>
+        <p>科学测算未来3-5年教师需求，形成2026年度教师招聘工作方案</p>
+        <p>鼓励省级或市级统一组织中小学幼儿园教师公开招聘</p>
+      </div>
+      <div>
+        <h4>📍 重点关注</h4>
+        <p>各地幼儿园教师招聘需结合学龄人口变化趋势</p>
+        <p>拓宽招聘补充渠道，严把教师准入条件</p>
+      </div>
+    </div>
+    <div style="margin-top:12px;font-size:.82rem;color:var(--text-muted)">
+      🔗 参考：<a href="http://www.news.cn/edu/20260423/ab264dac7bdb4c1591fc811fc1e3a2e8/c.html" target="_blank">新华网：教育部联合部署2026年中小学幼儿园教师公开招聘工作</a>
+    </div>
+  </div>
+</section>
+
+<!-- 实用链接 -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>快速直达招聘平台</h2>
+      <span class="count">以下链接可直达真实岗位页面</span>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-box" onclick="window.open('https://www.zhaopin.com/zhaopin/44eaca42912a4f4e9cc0a14ec6015dc2/')">
+        <div class="icon">📋</div>
+        <h4>智联招聘 · 杭州幼教</h4>
+        <div class="n">实时更新杭州地区幼教岗位</div>
+      </div>
+      <div class="cat-box" onclick="window.open('https://www.liepin.com/zpyoushi/')">
+        <div class="icon">🎯</div>
+        <h4>猎聘 · 幼师专区</h4>
+        <div class="n">2026年新增2,333+职位</div>
+      </div>
+      <div class="cat-box" onclick="window.open('https://www.gaoxiaojob.com/rczhaopin/xueqianjiaoshi/p3')">
+        <div class="icon">🏛️</div>
+        <h4>高校人才网 · 学前教师</h4>
+        <div class="n">高校/科研院所学前教育岗</div>
+      </div>
+      <div class="cat-box" onclick="window.open('https://www.yingjiesheng.com/zhuanye/jiaoyuxue/')">
+        <div class="icon">🎓</div>
+        <h4>应届生求职网 · 教育学</h4>
+        <div class="n">适合应届毕业生的岗位</div>
+      </div>
+      <div class="cat-box" onclick="window.open('https://www.zhipin.com/zhaopin/9bba7c4da7931f7a03Nz09W4GA~~/')">
+        <div class="icon">💼</div>
+        <h4>BOSS直聘 · 实习/早教</h4>
+        <div class="n">北京/上海/杭州实习岗位</div>
+      </div>
+      <div class="cat-box" onclick="window.open('https://www.liepin.com/zpyouerjiaoyu/')">
+        <div class="icon">🔍</div>
+        <h4>猎聘 · 幼儿教育</h4>
+        <div class="n">教研岗、课程顾问、家教等</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="logo" style="margin-bottom:10px">📋 学前教育招聘</div>
+        <p>聚合各大招聘平台的学前教育专业真实岗位信息。数据来源于智联招聘、猎聘、BOSS直聘、高校人才网等公开平台，仅供参考。</p>
+      </div>
+      <div>
+        <h4>招聘平台</h4>
+        <a href="https://www.zhaopin.com/" target="_blank">智联招聘</a>
+        <a href="https://www.liepin.com/" target="_blank">猎聘</a>
+        <a href="https://www.zhipin.com/" target="_blank">BOSS直聘</a>
+        <a href="https://www.gaoxiaojob.com/" target="_blank">高校人才网</a>
+      </div>
+      <div>
+        <h4>政策参考</h4>
+        <a href="http://www.news.cn/edu/20260423/ab264dac7bdb4c1591fc811fc1e3a2e8/c.html" target="_blank">2026年教师招聘联合部署</a>
+        <a href="https://jyzc.com/article/detail/1776923491065" target="_blank">两部门联合发文全文</a>
+      </div>
+    </div>
+    <div class="foot-btm">
+      <span>© 2026 学前教育招聘信息聚合 | 数据来源：各大招聘平台</span>
+      <span>⚠️ 本页面仅做信息展示，请以原始招聘页面为准</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
